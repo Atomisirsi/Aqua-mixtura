@@ -20,6 +20,12 @@ class Paths {
    * @return String with path to data dir
    */
   static QString dataDir();
+
+ private:
+  static QString loadPathJson(QString dir);
+  static bool savePathJson(QString dir);
+
+  static QString pathDataDir;
 };
 
 #endif  // PATHS_H
