@@ -177,7 +177,7 @@ void MainWindow::mixCopy() {
   if (!idx.isValid()) {
     return;
   }
-  Mixture m = model.mixtures.getMixture(idx.row());
+  Mixture m(model.mixtures.getMixture(idx.row()).toJson());
   m.updateCreationTime();
   m.newUuid();
   m.resetPath();
