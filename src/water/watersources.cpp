@@ -71,11 +71,16 @@ double WaterSources::getTotalVolume() const {
 
 void WaterSources::setTotalVolume(double volume) {
   // When just changing the total amount we should not change the percentage amounts of the different waters
-  if (sources.empty()) {
+  if (volume <= 0) {
+    // refuse to set zero or negative amount
     return;
   }
-  if (volume == 0) {
-    return;
+  if (total <= 0) {
+    // Special handling for negative or zero total
+    total = volume;
+    strike = total;
+    sparging = 0;
+    updateAllVolumes(-1);
   }
   const double factor = volume / total;
   qDebug() << "WaterSources::setTotalVolume; vol:" << volume << "fact:" << factor;
@@ -88,7 +93,7 @@ void WaterSources::setTotalVolume(double volume) {
   sparging *= factor;
 
   // ensure maximum for strike and sparging is big enougth
-  if (factor > 1) {
+  if (factor >= 1) {
     // total increased, first increase max so it will be bigger than strike and sparging
     emit maxStrikeSpargingChanged(total);
     emit strikeVolumeChanged(strike);
@@ -168,6 +173,10 @@ void WaterSources::addProfile(const Water& profile) {
   const int i = sources.size();  // NOLINT(*-narrowing-conversions): beginInsertRows requires int
   beginInsertRows(QModelIndex(), i, i);
   sources.append(profile);
+  // Special case if first water is added and total is zero
+  if (sources.size() == 1 && total <= 0) {
+    setTotalVolume(0.1);
+  }
   updateAllVolumes(i);
   emit dataModified();
   endInsertRows();
@@ -320,6 +329,11 @@ double WaterSources::updateVolume(int idx, double residual) {
     sources[idx].set(Water::Value::Volume, residual);
     emit dataChanged(index(idx, 2), index(idx, 2));
     return 0;
+  }
+  if (val < 0) {
+    // We can not have negative water
+    sources[idx].set(Water::Value::Volume, 0);
+    return residual;
   }
   return residual - val;
 }

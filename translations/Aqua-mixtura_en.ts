@@ -846,28 +846,28 @@
 <context>
     <name>WaterSources</name>
     <message>
-        <location filename="../src/water/watersources.cpp" line="232"/>
-        <location filename="../src/water/watersources.cpp" line="244"/>
+        <location filename="../src/water/watersources.cpp" line="241"/>
+        <location filename="../src/water/watersources.cpp" line="253"/>
         <source>Name</source>
         <translation>Name</translation>
     </message>
     <message>
-        <location filename="../src/water/watersources.cpp" line="234"/>
+        <location filename="../src/water/watersources.cpp" line="243"/>
         <source>Restalkalität</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/water/watersources.cpp" line="236"/>
+        <location filename="../src/water/watersources.cpp" line="245"/>
         <source>Menge</source>
         <translation>Amount</translation>
     </message>
     <message>
-        <location filename="../src/water/watersources.cpp" line="238"/>
+        <location filename="../src/water/watersources.cpp" line="247"/>
         <source>HG</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/water/watersources.cpp" line="240"/>
+        <location filename="../src/water/watersources.cpp" line="249"/>
         <source>NG</source>
         <translation type="unfinished"></translation>
     </message>
