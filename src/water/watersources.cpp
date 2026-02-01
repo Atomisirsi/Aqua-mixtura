@@ -317,7 +317,10 @@ void WaterSources::updateAllVolumes(int preserve) {
   }
   if (residual > 0) {
     // something left we need to add to last water
-    const int idx = sources.size() - 1;  // NOLINT(*-narrowing-conversions): dataChanged index uses int
+    int idx = sources.size() - 1;  // NOLINT(*-narrowing-conversions): dataChanged index uses int
+    if ( (preserve == idx) && (idx >=1) ) {
+      idx--; // take second last
+    }
     sources[idx].set(Water::Value::Volume, sources.at(idx).get(Water::Value::Volume) + residual);
     emit dataChanged(index(idx, 2), index(idx, 2));
   }
